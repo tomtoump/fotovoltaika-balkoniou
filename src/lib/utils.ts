@@ -51,5 +51,5 @@ export function formatDate(
     day: 'numeric',
   }
 ): string {
-  return new Intl.DateTimeFormat('en-US', options).format(date);
+  return new Intl.DateTimeFormat('el-GR', options).format(date);
 }

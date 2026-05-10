@@ -1,135 +1,97 @@
 ---
-title: "FAQ"
-description: "Frequently asked questions about Virex. Find answers to common questions about pricing, features, and troubleshooting."
-section: "Resources"
-order: 5
+title: 'Συχνές ερωτήσεις'
+description: 'Συχνές ερωτήσεις για τα φωτοβολταϊκά μπαλκονιού στην Ελλάδα: νομιμότητα, ασφάλεια, εγκατάσταση, απόδοση, κόστος.'
+section: 'FAQ'
+order: 1
 draft: false
 ---
 
-Find answers to the most common questions about Virex.
+## Νομιμότητα
 
-## General
+### Είναι νόμιμο να εγκαταστήσω plug-in PV στην Ελλάδα;
 
-### What is Virex?
+Δεν υπάρχει ρητή απαγόρευση. Δεν υπάρχει όμως και ξεκάθαρο πλαίσιο, όπως αναλύουμε στο
+[Νομικό πλαίσιο στην Ελλάδα](/wiki/nomiko-plaisio-ellada). Συνιστάται να παρακολουθείτε το
+[blog](/blog) μας για τις εξελίξεις.
 
-Virex is a modern development platform that helps teams build, deploy, and scale applications. We handle infrastructure complexity so you can focus on building great products.
+### Χρειάζομαι άδεια από την πολυκατοικία;
 
-### Who is Virex for?
+Εξαρτάται. Αν το πάνελ είναι ορατό από τον δρόμο και αλλάζει την όψη της οικοδομής, οι
+περισσότεροι κανονισμοί απαιτούν συναίνεση γενικής συνέλευσης.
 
-Virex is designed for developers and teams of all sizes—from solo indie hackers to enterprise organizations. Our platform scales with your needs.
+### Πληρώνω φόρο στα έσοδα;
 
-### What frameworks does Virex support?
+Δεν υπάρχουν έσοδα — η αυτοκατανάλωση **μειώνει** τον λογαριασμό σας, δεν δημιουργεί εισόδημα. Αν
+στο μέλλον υπάρξει αποζημίωση πλεονάσματος, θα ισχύουν οι αντίστοιχες φορολογικές διατάξεις.
 
-Virex supports all major frameworks including:
+## Ασφάλεια
 
-- Astro
-- Next.js
-- Remix
-- SvelteKit
-- Nuxt
-- Vue
-- React
-- And any static site generator
+### Είναι ασφαλές να συνδέσω σε κοινή πρίζα;
 
-We auto-detect your framework and configure builds automatically.
+Ναι, εφόσον ο **micro-inverter έχει anti-islanding** και η πρίζα είναι αποκλειστική (όχι
+πολύπριζο, όχι κοινή με μεγάλη συσκευή). Δείτε [Ασφάλεια & κατάλληλη πρίζα](/wiki/asfaleia-prizas).
 
-## Pricing
+### Τι γίνεται σε διακοπή ρεύματος;
 
-### Is there a free tier?
+Ο inverter σταματά αυτόματα να παράγει — αυτό λέγεται **anti-islanding** και προστατεύει
+τους τεχνικούς που δουλεύουν στις γραμμές της ΔΕΗ. Όταν επανέλθει το ρεύμα, ο inverter
+ξανασυνδέεται μετά από 30–60 δευτερόλεπτα.
 
-Yes! Our Hobby plan is free forever and includes:
+### Μπορώ να πιάσω ηλεκτροπληξία;
 
-- Unlimited personal projects
-- 100GB bandwidth per month
-- Automatic HTTPS
-- Preview deployments
+Όχι, αν χρησιμοποιείτε σύγχρονο εξοπλισμό. Ποτέ μην αποσυνδέετε ζωντανό inverter στον ήλιο —
+πρώτα καλύψτε το πάνελ με αδιαφανές πανί.
 
-### How does billing work?
+## Εγκατάσταση
 
-We bill monthly based on usage. You only pay for what you use beyond the free tier limits. See our [pricing page](/pricing) for details.
+### Χρειάζομαι ηλεκτρολόγο;
 
-### Can I change plans anytime?
+Από καθαρά τεχνική άποψη, το σύστημα είναι plug-and-play. Από νομική άποψη, είναι **καλή
+πρακτική** ένας αδειούχος ηλεκτρολόγος να ελέγξει τη γείωση και τη ρυθμιστική προστασία (RCD).
 
-Yes, you can upgrade or downgrade at any time. Changes take effect immediately, and we prorate charges.
+### Πόσο διαρκεί η εγκατάσταση;
 
-## Deployments
+2–4 ώρες για ένα πάνελ, με 2 άτομα, με όλα τα εργαλεία διαθέσιμα.
 
-### How fast are deployments?
+### Μπορώ σε ορίζοντια ταράτσα;
 
-Most deployments complete in under 30 seconds. Build times vary based on your project size and complexity.
+Ναι, με κατάλληλη βάση (βαρύ βάθρο χωρίς διάτρηση). Συνήθως απαιτεί συναίνεση οικοδομής.
 
-### Can I rollback a deployment?
+## Απόδοση
 
-Yes! Every deployment is saved, and you can rollback to any previous version instantly from the dashboard or CLI:
+### Πόσα kWh παράγει ένα πάνελ 400 W στην Αθήνα;
 
-```bash
-virex rollback --to=abc123
-```
+300–650 kWh/έτος ανάλογα με προσανατολισμό και σκίαση. Δείτε
+[Απόδοση ανά προσανατολισμό](/wiki/apodosi-anatoliki-dytiki).
 
-### Do you support preview deployments?
+### Τι κάνω αν παράγει περισσότερο από όσο καταναλώνω;
 
-Yes, every pull request automatically gets a unique preview URL. This is enabled by default for all projects.
+Με τυπική σύνδεση plug-in, το πλεόνασμα γυρίζει στο δίκτυο **χωρίς αποζημίωση**. Λύσεις:
+μετατόπιση φορτίων, μπαταρία, αντλία θερμότητας — βλ.
+[Συνδυασμός με μπαταρία/αντλία θερμότητας](/wiki/synergasia-me-anti-rohlou).
 
-## Security
+### Σε τι θερμοκρασίες λειτουργεί;
 
-### Is my code secure?
+Συνήθως −20 °C έως +60 °C. Σε πολύ ζεστά καλοκαίρια η απόδοση πέφτει 5–10% λόγω της θερμικής
+συμπεριφοράς του πυριτίου.
 
-Absolutely. We take security seriously:
+## Κόστος
 
-- All data is encrypted at rest and in transit
-- SOC 2 Type II certified
-- Regular security audits
-- No access to your source code beyond build time
+### Πόσο κοστίζει ένα κιτ 800 W;
 
-### Do you support SSO?
+400–800 € ανάλογα με ποιότητα και χαρακτηριστικά. Δείτε
+[Κόστος και χρόνος απόσβεσης](/wiki/kostos-kai-aposvesi).
 
-Yes, SSO is available on Team and Enterprise plans. We support SAML 2.0 and OIDC providers.
+### Σε πόσα χρόνια αποσβένεται;
 
-### Where is my data stored?
+4–7 χρόνια σε τυπικό σενάριο. Με εγγύηση πάνελ 20–25 χρόνια, η επένδυση αποπληρώνεται
+3–5 φορές.
 
-By default, data is stored in US regions. Enterprise customers can choose specific regions for compliance requirements.
+### Υπάρχει επιδότηση;
 
-## Troubleshooting
+Όχι αυτή τη στιγμή για plug-in PV. Παρακολουθούμε ενεργά τις ανακοινώσεις του ΥΠΕΝ.
 
-### My build is failing
+## Έχετε άλλη ερώτηση;
 
-Common causes:
-
-1. **Missing dependencies** — Ensure all dependencies are in `package.json`
-2. **Node version mismatch** — Specify your Node version in config
-3. **Environment variables** — Check that required variables are set
-
-Run your build locally first to debug:
-
-```bash
-npm run build
-```
-
-### My site is slow
-
-Check these common issues:
-
-1. **Large assets** — Optimize images and use lazy loading
-2. **Too many requests** — Bundle and minify your code
-3. **No caching** — Configure cache headers appropriately
-
-Use our built-in analytics to identify bottlenecks.
-
-### I'm getting 404 errors
-
-For single-page applications, ensure you have a fallback configured:
-
-```javascript
-export default {
-  rewrites: [
-    { source: '/(.*)', destination: '/index.html' },
-  ],
-};
-```
-
-## Still Have Questions?
-
-- **Documentation** — Browse our [docs](/docs) for detailed guides
-- **Discord** — Join our [community](https://discord.gg/virex) for help
-- **Support** — Enterprise customers can contact support directly
-- **Twitter** — Follow [@virex](https://twitter.com/virex) for updates
+Στείλτε μας email στο [privacy@fotovoltaika-mpalkoniou.gr](mailto:privacy@fotovoltaika-mpalkoniou.gr)
+ή ελέγξτε τις τελευταίες ενημερώσεις στο [blog](/blog).

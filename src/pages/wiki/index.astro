@@ -1,0 +1,170 @@
+---
+/**
+ * Wiki Landing Page
+ *
+ * Lists all wiki sections with their entries.
+ */
+import { getCollection, type CollectionEntry } from 'astro:content';
+import MarketingLayout from '@/layouts/MarketingLayout.astro';
+import { Icon } from 'astro-icon/components';
+import { siteConfig } from '@/config';
+
+type DocsEntry = CollectionEntry<'docs'>;
+
+const allDocs = await getCollection('docs', ({ data }: { data: DocsEntry['data'] }) => !data.draft);
+
+interface DocItem {
+  title: string;
+  description: string;
+  slug: string;
+  order: number;
+}
+
+interface DocsSection {
+  section: string;
+  items: DocItem[];
+}
+
+const sectionMap = new Map<string, DocItem[]>();
+
+for (const doc of allDocs) {
+  const sectionName = doc.data.section;
+  if (!sectionMap.has(sectionName)) {
+    sectionMap.set(sectionName, []);
+  }
+  sectionMap.get(sectionName)!.push({
+    title: doc.data.title,
+    description: doc.data.description,
+    slug: doc.id,
+    order: doc.data.order,
+  });
+}
+
+const docsSections: DocsSection[] = [];
+for (const [sectionName, items] of sectionMap) {
+  items.sort((a, b) => a.order - b.order);
+  docsSections.push({ section: sectionName, items });
+}
+
+docsSections.sort((a, b) => {
+  const aMinOrder = Math.min(...a.items.map((i) => i.order));
+  const bMinOrder = Math.min(...b.items.map((i) => i.order));
+  return aMinOrder - bMinOrder;
+});
+
+const firstDoc = allDocs.sort((a: DocsEntry, b: DocsEntry) => a.data.order - b.data.order)[0];
+
+const sectionIcons: Record<string, string> = {
+  Βασικά: 'lucide:rocket',
+  'Νομικό Πλαίσιο': 'lucide:scale',
+  Εγκατάσταση: 'lucide:wrench',
+  'Απόδοση & Κόστος': 'lucide:zap',
+  FAQ: 'lucide:help-circle',
+};
+
+function getSectionIcon(section: string): string {
+  return sectionIcons[section] || 'lucide:file-text';
+}
+---
+
+<MarketingLayout
+  title={`Wiki - ${siteConfig.name}`}
+  description="Όλη η γνώση για τα φωτοβολταϊκά μπαλκονιού στην Ελλάδα: τι είναι, πώς λειτουργούν, νομικό πλαίσιο, εγκατάσταση, απόδοση, κόστος."
+>
+  <!-- Hero Section -->
+  <section class="py-section bg-surface">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl mx-auto text-center">
+        <h1 class="text-4xl sm:text-5xl font-bold text-text">Wiki</h1>
+        <p class="mt-6 text-lg text-text-muted">
+          Όλα όσα χρειάζεστε να ξέρετε για τα φωτοβολταϊκά μπαλκονιού στην Ελλάδα. Από τις βασικές
+          έννοιες μέχρι τη νομοθεσία και την εγκατάσταση.
+        </p>
+        <div class="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
+          {
+            firstDoc && (
+              <a
+                href={`/wiki/${firstDoc.id}`}
+                class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-md bg-primary text-white font-medium hover:bg-primary-dark transition-colors"
+              >
+                <Icon name="lucide:book-open" class="w-5 h-5" />
+                Ξεκινήστε εδώ
+              </a>
+            )
+          }
+          <a
+            href="#sections"
+            class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-md border border-border bg-background text-text font-medium hover:bg-surface transition-colors"
+          >
+            <Icon name="lucide:list" class="w-5 h-5" />
+            Όλες οι ενότητες
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Wiki Sections -->
+  <section id="sections" class="py-section">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="space-y-12">
+        {
+          docsSections.map((section) => (
+            <div>
+              <div class="flex items-center gap-3 mb-6">
+                <div class="p-2 rounded-md bg-primary/10 text-primary">
+                  <Icon name={getSectionIcon(section.section)} class="w-6 h-6" />
+                </div>
+                <h2 class="text-2xl font-bold text-text">{section.section}</h2>
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {section.items.map((doc) => (
+                  <a
+                    href={`/wiki/${doc.slug}`}
+                    class="block p-6 rounded-lg border border-border bg-background hover:border-primary hover:shadow-md transition-all group"
+                  >
+                    <h3 class="font-semibold text-text group-hover:text-primary transition-colors">
+                      {doc.title}
+                    </h3>
+                    <p class="mt-2 text-sm text-text-muted line-clamp-2">{doc.description}</p>
+                    <div class="mt-4 flex items-center gap-1 text-sm text-primary font-medium">
+                      Διαβάστε περισσότερα
+                      <Icon
+                        name="lucide:arrow-right"
+                        class="w-4 h-4 group-hover:translate-x-1 transition-transform"
+                      />
+                    </div>
+                  </a>
+                ))}
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Calculator CTA -->
+  <section class="py-section bg-surface">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl mx-auto text-center">
+        <h2 class="text-2xl font-bold text-text">Έτοιμοι να υπολογίσετε την παραγωγή σας;</h2>
+        <p class="mt-4 text-text-muted">
+          Χρησιμοποιήστε τον δωρεάν υπολογιστή του balconysolar.gr για μια εκτίμηση βάσει του δικού
+          σας μπαλκονιού.
+        </p>
+        <div class="mt-8 flex justify-center">
+          <a
+            href={siteConfig.calculatorUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-md bg-primary text-white font-medium hover:bg-primary-dark transition-colors"
+          >
+            <Icon name="lucide:calculator" class="w-5 h-5" />
+            Υπολογιστής παραγωγής
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</MarketingLayout>

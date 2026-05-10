@@ -60,9 +60,9 @@ interface Props {
   /** Supporting text that appears below the headline */
   subtitle: string;
   /** Primary call-to-action button with label and link */
-  primaryCTA: { label: string; href: string };
+  primaryCTA: { label: string; href: string; external?: boolean };
   /** Optional secondary call-to-action button */
-  secondaryCTA?: { label: string; href: string };
+  secondaryCTA?: { label: string; href: string; external?: boolean };
   /** Background type */
   backgroundType?: 'solid' | 'gradient' | 'image' | 'video';
   /** Solid background style (when backgroundType is 'solid') */
@@ -140,6 +140,10 @@ const minHeightClass = {
 // Alignment classes
 const alignClass = align === 'left' ? 'text-left' : 'text-center mx-auto';
 const buttonAlignClass = align === 'left' ? 'justify-start' : 'justify-center';
+
+// Detect external links (any absolute URL or explicit external flag)
+const isExternal = (cta: { href: string; external?: boolean }) =>
+  cta.external ?? /^https?:\/\//.test(cta.href);
 ---
 
 <section
@@ -206,6 +210,8 @@ const buttonAlignClass = align === 'left' ? 'justify-start' : 'justify-center';
       <div class:list={['mt-10 flex flex-col sm:flex-row items-center gap-4', buttonAlignClass]}>
         <a
           href={primaryCTA.href}
+          target={isExternal(primaryCTA) ? '_blank' : undefined}
+          rel={isExternal(primaryCTA) ? 'noopener noreferrer' : undefined}
           class="inline-flex items-center justify-center px-6 py-3 rounded-md bg-primary text-white font-medium hover:bg-primary-dark transition-colors w-full sm:w-auto"
         >
           {primaryCTA.label}
@@ -214,6 +220,8 @@ const buttonAlignClass = align === 'left' ? 'justify-start' : 'justify-center';
           secondaryCTA && (
             <a
               href={secondaryCTA.href}
+              target={isExternal(secondaryCTA) ? '_blank' : undefined}
+              rel={isExternal(secondaryCTA) ? 'noopener noreferrer' : undefined}
               class:list={[
                 'inline-flex items-center justify-center px-6 py-3 rounded-md border font-medium transition-colors w-full sm:w-auto',
                 textClasses.button,

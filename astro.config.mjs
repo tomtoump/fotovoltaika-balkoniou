@@ -38,10 +38,7 @@ export default defineConfig({
 
         // Filter out pages based on feature flags
         if (!features.blog && page.includes('/blog')) return false;
-        if (!features.docs && page.includes('/docs')) return false;
-        if (!features.changelog && page.includes('/changelog')) return false;
-        if (!features.testimonials && page.includes('/testimonials')) return false;
-        if (!features.roadmap && page.includes('/roadmap')) return false;
+        if (!features.docs && page.includes('/wiki')) return false;
 
         return true;
       },

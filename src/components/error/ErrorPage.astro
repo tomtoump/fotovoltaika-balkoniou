@@ -30,19 +30,13 @@
 import { siteConfig } from '@/config';
 
 interface Props {
-  /** HTTP error code displayed prominently */
   code: number;
-  /** Error title/headline */
   title: string;
-  /** Descriptive error message */
   message: string;
-  /** Show "Go to Homepage" button */
   showHomeButton?: boolean;
-  /** Show "Contact Support" button */
-  showContactButton?: boolean;
 }
 
-const { code, title, message, showHomeButton = true, showContactButton = true } = Astro.props;
+const { code, title, message, showHomeButton = true } = Astro.props;
 ---
 
 <div class="container mx-auto px-6 text-center">
@@ -73,24 +67,14 @@ const { code, title, message, showHomeButton = true, showContactButton = true } 
 
     <!-- Actions -->
     {
-      (showHomeButton || showContactButton) && (
+      showHomeButton && (
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          {showHomeButton && (
-            <a
-              href="/"
-              class="inline-flex items-center justify-center px-6 py-3 bg-primary text-white font-medium rounded-md hover:bg-primary-dark transition-colors"
-            >
-              Go to Homepage
-            </a>
-          )}
-          {showContactButton && (
-            <a
-              href="/contact"
-              class="inline-flex items-center justify-center px-6 py-3 border border-border text-text font-medium rounded-md hover:bg-surface transition-colors"
-            >
-              Contact Support
-            </a>
-          )}
+          <a
+            href="/"
+            class="inline-flex items-center justify-center px-6 py-3 bg-primary text-white font-medium rounded-md hover:bg-primary-dark transition-colors"
+          >
+            Επιστροφή στην αρχική
+          </a>
         </div>
       )
     }

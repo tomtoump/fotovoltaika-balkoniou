@@ -85,7 +85,7 @@ const organizationSchema = {
   name: siteConfig.name,
   url: siteConfig.url,
   logo: new URL(siteConfig.logo, siteConfig.url).href,
-  sameAs: [siteConfig.social.twitter, siteConfig.social.github, siteConfig.social.discord].filter(
+  sameAs: [siteConfig.social.twitter, siteConfig.social.github, siteConfig.social.facebook].filter(
     Boolean
   ),
 };
@@ -127,7 +127,7 @@ const breadcrumbSchema = {
     {
       '@type': 'ListItem',
       position: 1,
-      name: 'Home',
+      name: 'Αρχική',
       item: siteConfig.url,
     },
     ...(Astro.url.pathname !== '/'
