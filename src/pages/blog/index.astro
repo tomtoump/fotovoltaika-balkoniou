@@ -29,14 +29,14 @@ const getTypedTags = (tags: string[]) => tags.slice(0, 3);
 
 <MarketingLayout
   title={`Blog - ${siteConfig.name}`}
-  description={`Latest news, updates, and insights from the ${siteConfig.name} team.`}
+  description="Νέα και ενημερώσεις για τα φωτοβολταϊκά μπαλκονιού στην Ελλάδα: νομοθεσία, διαδικασίες ΔΕΔΔΗΕ, αγορά, προϊόντα."
 >
   <section class="py-section">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-12">
         <h1 class="text-4xl sm:text-5xl font-bold text-text">Blog</h1>
         <p class="mt-4 text-lg text-text-muted max-w-2xl mx-auto">
-          Latest news, updates, and insights from the {siteConfig.name} team.
+          Νέα και ενημερώσεις για τα φωτοβολταϊκά μπαλκονιού στην Ελλάδα.
         </p>
       </div>
 
@@ -45,12 +45,12 @@ const getTypedTags = (tags: string[]) => tags.slice(0, 3);
         allTags.length > 0 && (
           <div class="mb-10">
             <div class="flex flex-wrap items-center gap-2">
-              <span class="text-sm font-medium text-text-muted mr-2">Filter by tag:</span>
+              <span class="text-sm font-medium text-text-muted mr-2">Φιλτράρισμα ανά ετικέτα:</span>
               <a
                 href="/blog"
                 class="px-3 py-1.5 text-sm font-medium rounded-md bg-primary text-white"
               >
-                All
+                Όλα
               </a>
               {allTags.map((tag) => (
                 <a
@@ -88,14 +88,14 @@ const getTypedTags = (tags: string[]) => tags.slice(0, 3);
                   <div class="flex-1">
                     <div class="flex flex-wrap items-center gap-3 text-sm text-text-muted mb-2">
                       <span>
-                        {post.data.publishedDate.toLocaleDateString('en-US', {
+                        {post.data.publishedDate.toLocaleDateString('el-GR', {
                           year: 'numeric',
                           month: 'long',
                           day: 'numeric',
                         })}
                       </span>
                       <span>·</span>
-                      <span>{calculateReadingTime(post.body || '')} min read</span>
+                      <span>{calculateReadingTime(post.body || '')} λεπτά ανάγνωσης</span>
                     </div>
                     <h2 class="text-xl font-bold text-text group-hover:text-primary transition-colors">
                       {post.data.title}
@@ -121,7 +121,7 @@ const getTypedTags = (tags: string[]) => tags.slice(0, 3);
       {
         sortedPosts.length === 0 && (
           <div class="text-center py-12">
-            <p class="text-text-muted">No blog posts yet. Check back soon!</p>
+            <p class="text-text-muted">Δεν υπάρχουν ακόμη άρθρα. Επιστρέψτε σύντομα!</p>
           </div>
         )
       }

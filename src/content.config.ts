@@ -8,9 +8,13 @@ const blog = defineCollection({
     title: z.string(),
     description: z.string(),
     publishedDate: z.coerce.date(),
+    /** Optional last-edit date — set when the post is updated after publication */
+    updatedDate: z.coerce.date().optional(),
     author: z.string(),
     image: z.string().optional(),
     tags: z.array(z.string()).default([]),
+    /** Primary citation URL (e.g. ΦΕΚ, ΥΠΕΝ press release) */
+    source: z.string().url().optional(),
     draft: z.boolean().default(false),
   }),
 });
@@ -26,29 +30,4 @@ const docs = defineCollection({
   }),
 });
 
-const changelog = defineCollection({
-  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/changelog' }),
-  schema: z.object({
-    version: z.string(),
-    date: z.coerce.date(),
-    title: z.string(),
-    type: z.enum(['major', 'minor', 'patch']),
-    draft: z.boolean().default(false),
-  }),
-});
-
-const testimonials = defineCollection({
-  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/testimonials' }),
-  schema: z.object({
-    quote: z.string(),
-    author: z.string(),
-    role: z.string(),
-    company: z.string(),
-    avatar: z.string().optional(),
-    featured: z.boolean().default(false),
-    order: z.number().default(0),
-    draft: z.boolean().default(false),
-  }),
-});
-
-export const collections = { blog, docs, changelog, testimonials };
+export const collections = { blog, docs };

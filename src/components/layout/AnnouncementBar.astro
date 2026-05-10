@@ -58,7 +58,7 @@ import { Icon } from 'astro-icon/components';
 const {
   text,
   href,
-  linkText = 'Learn more',
+  linkText = 'Μάθε περισσότερα',
   variant = 'primary',
   dismissible = true,
   id = 'announcement',
@@ -100,7 +100,7 @@ const variantClasses = {
         <button
           type="button"
           class="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 rounded-md hover:bg-white/20 transition-colors focus:outline-none focus:ring-2 focus:ring-white/50"
-          aria-label="Dismiss announcement"
+          aria-label="Απόρριψη ανακοίνωσης"
           data-dismiss-announcement={id}
         >
           <Icon name="lucide:x" class="w-4 h-4" aria-hidden="true" />

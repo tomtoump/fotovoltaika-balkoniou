@@ -26,20 +26,23 @@
  * ```
  */
 
+interface CTAAction {
+  label: string;
+  href: string;
+  external?: boolean;
+}
+
 interface Props {
-  /** Headline text for the CTA section */
   title: string;
-  /** Supporting description text */
   description: string;
-  /** Primary action button with label and link */
-  action: { label: string; href: string };
-  /** Optional secondary action button */
-  secondaryAction?: { label: string; href: string };
-  /** Section background style */
+  action: CTAAction;
+  secondaryAction?: CTAAction;
   background?: 'default' | 'muted' | 'accent';
 }
 
 const { title, description, action, secondaryAction, background = 'default' } = Astro.props;
+
+const isExternal = (a: CTAAction) => a.external ?? /^https?:\/\//.test(a.href);
 
 const bgClass = {
   default: 'bg-background',
@@ -60,6 +63,8 @@ const bgClass = {
       <div class="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
         <a
           href={action.href}
+          target={isExternal(action) ? '_blank' : undefined}
+          rel={isExternal(action) ? 'noopener noreferrer' : undefined}
           class="inline-flex items-center justify-center px-6 py-3 rounded-md bg-white text-primary font-medium hover:bg-white/90 transition-colors"
         >
           {action.label}
@@ -68,6 +73,8 @@ const bgClass = {
           secondaryAction && (
             <a
               href={secondaryAction.href}
+              target={isExternal(secondaryAction) ? '_blank' : undefined}
+              rel={isExternal(secondaryAction) ? 'noopener noreferrer' : undefined}
               class="inline-flex items-center justify-center px-6 py-3 rounded-md border border-white/30 text-white font-medium hover:bg-white/10 transition-colors"
             >
               {secondaryAction.label}

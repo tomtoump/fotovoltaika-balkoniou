@@ -43,21 +43,21 @@ const getTypedTagsWithActive = (tags: string[], activeTag: string) =>
 ---
 
 <MarketingLayout
-  title={`Posts tagged "${tag}"`}
-  description={`Browse all blog posts tagged with "${tag}" on the ${siteConfig.name} blog.`}
+  title={`Άρθρα με ετικέτα "${tag}"`}
+  description={`Όλα τα άρθρα του blog ${siteConfig.name} με την ετικέτα "${tag}".`}
 >
   <section class="py-section">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-12">
         <a href="/blog" class="text-primary hover:underline text-sm font-medium">
-          ← Back to all posts
+          ← Πίσω σε όλα τα άρθρα
         </a>
         <h1 class="text-4xl sm:text-5xl font-bold text-text mt-4">
-          Posts tagged "{tag}"
+          Άρθρα με ετικέτα "{tag}"
         </h1>
         <p class="mt-4 text-lg text-text-muted">
           {filteredPosts.length}
-          {filteredPosts.length === 1 ? 'post' : 'posts'} found
+          {filteredPosts.length === 1 ? 'άρθρο' : 'άρθρα'}
         </p>
       </div>
 
@@ -66,12 +66,12 @@ const getTypedTagsWithActive = (tags: string[], activeTag: string) =>
         allTags.length > 0 && (
           <div class="mb-10">
             <div class="flex flex-wrap items-center gap-2">
-              <span class="text-sm font-medium text-text-muted mr-2">Filter by tag:</span>
+              <span class="text-sm font-medium text-text-muted mr-2">Φιλτράρισμα ανά ετικέτα:</span>
               <a
                 href="/blog"
                 class="px-3 py-1.5 text-sm font-medium rounded-md bg-surface text-text-muted hover:bg-primary/10 hover:text-primary transition-colors"
               >
-                All
+                Όλα
               </a>
               {allTags.map((t) => (
                 <a
@@ -114,14 +114,14 @@ const getTypedTagsWithActive = (tags: string[], activeTag: string) =>
                   <div class="flex-1">
                     <div class="flex flex-wrap items-center gap-3 text-sm text-text-muted mb-2">
                       <span>
-                        {post.data.publishedDate.toLocaleDateString('en-US', {
+                        {post.data.publishedDate.toLocaleDateString('el-GR', {
                           year: 'numeric',
                           month: 'long',
                           day: 'numeric',
                         })}
                       </span>
                       <span>·</span>
-                      <span>{calculateReadingTime(post.body || '')} min read</span>
+                      <span>{calculateReadingTime(post.body || '')} λεπτά ανάγνωσης</span>
                     </div>
                     <h2 class="text-xl font-bold text-text group-hover:text-primary transition-colors">
                       {post.data.title}
@@ -154,9 +154,9 @@ const getTypedTagsWithActive = (tags: string[], activeTag: string) =>
       {
         filteredPosts.length === 0 && (
           <div class="text-center py-12">
-            <p class="text-text-muted">No posts found with this tag.</p>
+            <p class="text-text-muted">Δεν υπάρχουν άρθρα με αυτή την ετικέτα.</p>
             <a href="/blog" class="text-primary hover:underline mt-2 inline-block">
-              View all posts
+              Δες όλα τα άρθρα
             </a>
           </div>
         )
