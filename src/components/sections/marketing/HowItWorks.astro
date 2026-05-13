@@ -31,6 +31,8 @@ interface Step {
   icon?: string;
   /** Optional image URL */
   image?: string;
+  /** Optional link — when set, the step becomes a clickable card */
+  href?: string;
 }
 
 interface Props {
@@ -88,30 +90,54 @@ const hasHeading = title || subtitle;
           />
 
           <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
-            {steps.map((step, index) => (
-              <div class="relative text-center">
-                {/* Step number or icon */}
-                <div class="relative z-10 mx-auto w-24 h-24 flex items-center justify-center rounded-full bg-primary text-white text-2xl font-bold mb-6">
-                  {step.icon ? (
-                    <Icon name={step.icon} class="w-10 h-10" />
-                  ) : showNumbers ? (
-                    <span>{index + 1}</span>
-                  ) : (
-                    <Icon name="lucide:check" class="w-10 h-10" />
-                  )}
-                </div>
-
-                {/* Optional image */}
-                {step.image && (
-                  <div class="mb-6 rounded-lg overflow-hidden border border-border">
-                    <img src={step.image} alt={step.title} class="w-full h-auto" loading="lazy" />
+            {steps.map((step, index) => {
+              const Wrapper = step.href ? 'a' : 'div';
+              const isExternal = step.href ? /^https?:\/\//.test(step.href) : false;
+              return (
+                <Wrapper
+                  href={step.href}
+                  target={isExternal ? '_blank' : undefined}
+                  rel={isExternal ? 'noopener' : undefined}
+                  class:list={[
+                    'relative text-center block',
+                    step.href && 'group transition-transform hover:-translate-y-1',
+                  ]}
+                >
+                  {/* Step number or icon */}
+                  <div
+                    class:list={[
+                      'relative z-10 mx-auto w-24 h-24 flex items-center justify-center rounded-full bg-primary text-white text-2xl font-bold mb-6',
+                      step.href && 'transition-shadow group-hover:shadow-lg',
+                    ]}
+                  >
+                    {step.icon ? (
+                      <Icon name={step.icon} class="w-10 h-10" />
+                    ) : showNumbers ? (
+                      <span>{index + 1}</span>
+                    ) : (
+                      <Icon name="lucide:check" class="w-10 h-10" />
+                    )}
                   </div>
-                )}
 
-                <h3 class="text-xl font-semibold text-text mb-3">{step.title}</h3>
-                <p class="text-text-muted leading-relaxed">{step.description}</p>
-              </div>
-            ))}
+                  {/* Optional image */}
+                  {step.image && (
+                    <div class="mb-6 rounded-lg overflow-hidden border border-border">
+                      <img src={step.image} alt={step.title} class="w-full h-auto" loading="lazy" />
+                    </div>
+                  )}
+
+                  <h3
+                    class:list={[
+                      'text-xl font-semibold text-text mb-3',
+                      step.href && 'group-hover:text-primary transition-colors',
+                    ]}
+                  >
+                    {step.title}
+                  </h3>
+                  <p class="text-text-muted leading-relaxed">{step.description}</p>
+                </Wrapper>
+              );
+            })}
           </div>
         </div>
       )

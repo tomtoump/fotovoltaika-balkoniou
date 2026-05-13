@@ -21,7 +21,7 @@ export async function GET(context: APIContext) {
   );
 
   return rss({
-    title: `Blog — ${siteConfig.name}`,
+    title: `Νέα — ${siteConfig.name}`,
     description: siteConfig.description,
     site: context.site ?? siteConfig.url,
     items: sortedPosts.map((post: BlogPost) => ({
@@ -29,7 +29,7 @@ export async function GET(context: APIContext) {
       pubDate: post.data.publishedDate,
       description: post.data.description,
       author: post.data.author,
-      link: `/blog/${post.id}/`,
+      link: `/news/${post.id}/`,
     })),
     customData: `<language>el-GR</language>`,
   });

@@ -55,12 +55,12 @@
  */
 
 interface Props {
-  /** Main headline text displayed prominently */
-  title: string;
+  /** Main headline text. Pass an array of strings to render each on its own line. */
+  title: string | string[];
   /** Supporting text that appears below the headline */
   subtitle: string;
-  /** Primary call-to-action button with label and link */
-  primaryCTA: { label: string; href: string; external?: boolean };
+  /** Optional primary call-to-action button */
+  primaryCTA?: { label: string; href: string; external?: boolean };
   /** Optional secondary call-to-action button */
   secondaryCTA?: { label: string; href: string; external?: boolean };
   /** Background type */
@@ -202,36 +202,46 @@ const isExternal = (cta: { href: string; external?: boolean }) =>
           textClasses.heading,
         ]}
       >
-        {title}
+        {
+          Array.isArray(title)
+            ? title.map((line) => <span class="block">{line}</span>)
+            : title
+        }
       </h1>
       <p class:list={['mt-6 text-lg sm:text-xl leading-relaxed', textClasses.body]}>
         {subtitle}
       </p>
-      <div class:list={['mt-10 flex flex-col sm:flex-row items-center gap-4', buttonAlignClass]}>
-        <a
-          href={primaryCTA.href}
-          target={isExternal(primaryCTA) ? '_blank' : undefined}
-          rel={isExternal(primaryCTA) ? 'noopener noreferrer' : undefined}
-          class="inline-flex items-center justify-center px-6 py-3 rounded-md bg-primary text-white font-medium hover:bg-primary-dark transition-colors w-full sm:w-auto"
-        >
-          {primaryCTA.label}
-        </a>
-        {
-          secondaryCTA && (
-            <a
-              href={secondaryCTA.href}
-              target={isExternal(secondaryCTA) ? '_blank' : undefined}
-              rel={isExternal(secondaryCTA) ? 'noopener noreferrer' : undefined}
-              class:list={[
-                'inline-flex items-center justify-center px-6 py-3 rounded-md border font-medium transition-colors w-full sm:w-auto',
-                textClasses.button,
-              ]}
-            >
-              {secondaryCTA.label}
-            </a>
-          )
-        }
-      </div>
+      {
+        (primaryCTA || secondaryCTA) && (
+          <div
+            class:list={['mt-10 flex flex-col sm:flex-row items-center gap-4', buttonAlignClass]}
+          >
+            {primaryCTA && (
+              <a
+                href={primaryCTA.href}
+                target={isExternal(primaryCTA) ? '_blank' : undefined}
+                rel={isExternal(primaryCTA) ? 'noopener' : undefined}
+                class="inline-flex items-center justify-center px-6 py-3 rounded-md bg-primary text-white font-medium hover:bg-primary-dark transition-colors w-full sm:w-auto"
+              >
+                {primaryCTA.label}
+              </a>
+            )}
+            {secondaryCTA && (
+              <a
+                href={secondaryCTA.href}
+                target={isExternal(secondaryCTA) ? '_blank' : undefined}
+                rel={isExternal(secondaryCTA) ? 'noopener' : undefined}
+                class:list={[
+                  'inline-flex items-center justify-center px-6 py-3 rounded-md border font-medium transition-colors w-full sm:w-auto',
+                  textClasses.button,
+                ]}
+              >
+                {secondaryCTA.label}
+              </a>
+            )}
+          </div>
+        )
+      }
     </div>
   </div>
 </section>

@@ -41,15 +41,9 @@ const { code, title, message, showHomeButton = true } = Astro.props;
 
 <div class="container mx-auto px-6 text-center">
   <div class="max-w-md mx-auto">
-    <!-- Logo -->
+    <!-- Site Name -->
     <div class="inline-flex items-center gap-2 mb-12">
-      {
-        siteConfig.logo ? (
-          <img src={siteConfig.logo} alt={siteConfig.name} class="h-8 w-auto" />
-        ) : (
-          <span class="font-semibold text-xl text-text">{siteConfig.name}</span>
-        )
-      }
+      <span class="font-semibold text-xl text-text">{siteConfig.name}</span>
     </div>
 
     <!-- Error Code -->

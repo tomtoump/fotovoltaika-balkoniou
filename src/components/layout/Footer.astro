@@ -29,59 +29,66 @@ const columns: Column[] = [
 
 <footer class="bg-surface border-t border-background">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 lg:gap-12">
+    <div
+      class="flex flex-col items-center sm:flex-row sm:items-start sm:justify-between gap-8 lg:gap-12 text-center sm:text-left"
+    >
       <!-- Brand Column -->
-      <div class="sm:col-span-1">
+      <div class="max-w-xs">
         <a href="/" class="inline-flex items-center gap-2 font-semibold text-lg text-text">
-          {
-            siteConfig.logo ? (
-              <img src={siteConfig.logo} alt={siteConfig.name} class="h-8 w-auto" />
-            ) : (
-              siteConfig.name
-            )
-          }
+          {siteConfig.name}
         </a>
-        <p class="mt-3 text-sm text-text-muted max-w-xs">
+        <p class="mt-3 text-sm text-text-muted max-w-[18rem] mx-auto sm:mx-0">
           {siteConfig.description}
+        </p>
+        <p class="mt-3 text-sm text-text-muted sm:hidden">
+          <a
+            href={`mailto:${siteConfig.legal.contactEmail}`}
+            class="hover:text-text transition-colors"
+          >
+            Επικοινωνία
+          </a>
         </p>
       </div>
 
-      {
-        columns.map(
-          (col) =>
-            col.links.length > 0 && (
-              <div>
-                <h3 class="font-semibold text-sm text-text mb-4">{col.title}</h3>
-                <ul class="space-y-3">
-                  {col.links.map((link) => (
-                    <li>
-                      <a
-                        href={link.href}
-                        target={link.external ? '_blank' : undefined}
-                        rel={link.external ? 'noopener noreferrer' : undefined}
-                        class="text-sm text-text-muted hover:text-text transition-colors"
-                      >
-                        {link.label}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )
-        )
-      }
+      <!-- Link Columns (right-aligned cluster — hidden on mobile) -->
+      <div class="hidden sm:grid sm:grid-cols-2 gap-8 lg:gap-12">
+        {
+          columns.map(
+            (col) =>
+              col.links.length > 0 && (
+                <div>
+                  <h3 class="font-semibold text-sm text-text mb-4">{col.title}</h3>
+                  <ul class="space-y-3">
+                    {col.links.map((link) => (
+                      <li>
+                        <a
+                          href={link.href}
+                          target={link.external ? '_blank' : undefined}
+                          rel={link.external ? 'noopener' : undefined}
+                          class="text-sm text-text-muted hover:text-text transition-colors"
+                        >
+                          {link.label}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )
+          )
+        }
+      </div>
     </div>
 
     <!-- Bottom Bar -->
     <div class="mt-12 pt-8 border-t border-background">
       <div
-        class="flex flex-col items-center md:flex-row md:justify-between gap-4 text-center md:text-left"
+        class="flex flex-col items-center lg:flex-row lg:justify-between gap-4 text-center lg:text-left"
       >
         <p class="text-sm text-text-muted">
-          &copy; {currentYear}
-          {siteConfig.name}. Με επιφύλαξη παντός δικαιώματος.
+          <span class="whitespace-nowrap">&copy; {currentYear} {siteConfig.name}.</span>
+          <span class="whitespace-nowrap">Με επιφύλαξη παντός δικαιώματος.</span>
         </p>
-        <div class="flex items-center gap-6">
+        <div class="flex flex-wrap items-center justify-center lg:justify-end gap-x-6 gap-y-2">
           {
             legalLinks.map((link) => (
               <a href={link.href} class="text-sm text-text-muted hover:text-text transition-colors">
@@ -89,6 +96,13 @@ const columns: Column[] = [
               </a>
             ))
           }
+          <button
+            type="button"
+            data-cc="show-preferencesModal"
+            class="text-sm text-text-muted hover:text-text transition-colors cursor-pointer appearance-none bg-transparent border-0 p-0 font-[inherit]"
+          >
+            Ρυθμίσεις cookies
+          </button>
         </div>
       </div>
     </div>

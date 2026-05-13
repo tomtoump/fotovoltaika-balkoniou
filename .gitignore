@@ -4,6 +4,10 @@ dist/
 # generated types
 .astro/
 
+# Claude Code local state
+.claude/agent-memory/
+.claude/settings.local.json
+
 # dependencies
 node_modules/
 

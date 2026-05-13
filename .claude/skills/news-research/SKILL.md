@@ -1,11 +1,11 @@
 ---
 name: news-research
-description: Research Greek balcony-PV news (νομοθεσία ΥΠΕΝ/ΡΑΑΕΥ/ΔΕΔΔΗΕ, ευρωπαϊκές οδηγίες, αγορά, νέα προϊόντα) and draft a blog post in Greek under src/content/blog/. Use when the user asks to draft an article, summarise a regulation, or write up news for fotovoltaika-mpalkoniou.gr.
+description: Research Greek balcony-PV news (νομοθεσία ΥΠΕΝ/ΡΑΑΕΥ/ΔΕΔΔΗΕ, ευρωπαϊκές οδηγίες, αγορά, νέα προϊόντα) and draft a blog post in Greek under src/content/blog/. Use when the user asks to draft an article, summarise a regulation, or write up news for fotovoltaika-balkoniou.gr.
 ---
 
 # News research & draft skill
 
-Drafts a Greek-language blog post for `fotovoltaika-mpalkoniou.gr` from primary sources. The
+Drafts a Greek-language blog post for `fotovoltaika-balkoniou.gr` from primary sources. The
 output is always a new file under `src/content/blog/<slug>.md` with `draft: true` so a human
 reviewer ships it.
 

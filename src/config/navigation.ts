@@ -3,31 +3,29 @@
  */
 
 import type { Navigation } from '../lib/types';
-import { calculatorUrl } from './site';
+import { calculatorUrl, legal } from './site';
 
 export const navigation: Navigation = {
   header: {
     main: [
-      { label: 'Wiki', href: '/wiki' },
-      { label: 'Blog', href: '/blog' },
-      { label: 'Σχετικά', href: '/about' },
-      { label: 'Υπολογιστής', href: calculatorUrl, external: true },
+      { label: 'Οδηγός', href: '/wiki' },
+      { label: 'Νέα', href: '/news' },
+      { label: 'Υπολογισμός Eξοικονόμησης', href: calculatorUrl, external: true },
     ],
   },
 
   footer: {
     content: [
-      { label: 'Wiki', href: '/wiki' },
-      { label: 'Blog', href: '/blog' },
-      { label: 'RSS', href: '/rss.xml' },
+      { label: 'Οδηγός', href: '/wiki' },
+      { label: 'Νέα', href: '/news' },
     ],
     info: [
-      { label: 'Σχετικά', href: '/about' },
-      { label: 'Υπολογιστής (balconysolar.gr)', href: calculatorUrl, external: true },
+      { label: 'Υπολογισμός Eξοικονόμησης', href: calculatorUrl, external: true },
+      { label: 'Επικοινωνία', href: `mailto:${legal.contactEmail}` },
     ],
     legal: [
-      { label: 'Πολιτική απορρήτου', href: '/privacy' },
       { label: 'Όροι χρήσης', href: '/terms' },
+      { label: 'Πολιτική απορρήτου', href: '/privacy' },
     ],
   },
 };

@@ -3,13 +3,11 @@ import { getCollection, type CollectionEntry } from 'astro:content';
 import MarketingLayout from '@/layouts/MarketingLayout.astro';
 import Hero from '@sections/marketing/Hero.astro';
 import HowItWorks from '@sections/marketing/HowItWorks.astro';
-import CTA from '@sections/marketing/CTA.astro';
+import CalculatorCTA from '@components/CalculatorCTA.astro';
 import { Icon } from 'astro-icon/components';
 import { siteConfig } from '@/config';
-import { calculateReadingTime } from '@/lib/utils';
 
 type BlogPost = CollectionEntry<'blog'>;
-type DocsEntry = CollectionEntry<'docs'>;
 
 const allPosts = await getCollection('blog', ({ data }: { data: BlogPost['data'] }) => !data.draft);
 const latestPosts = [...allPosts]
@@ -17,61 +15,60 @@ const latestPosts = [...allPosts]
     (a: BlogPost, b: BlogPost) => b.data.publishedDate.getTime() - a.data.publishedDate.getTime()
   )
   .slice(0, 3);
-
-const allDocs = await getCollection('docs', ({ data }: { data: DocsEntry['data'] }) => !data.draft);
-const popularDocs = [...allDocs]
-  .sort((a: DocsEntry, b: DocsEntry) => a.data.order - b.data.order)
-  .slice(0, 4);
 ---
 
 <MarketingLayout
-  title={`${siteConfig.name} - ${siteConfig.description}`}
+  title={siteConfig.description}
   description={siteConfig.description}
 >
   <Hero
-    title="Φωτοβολταϊκά Μπαλκονιού — Ο οδηγός για την Ελλάδα"
-    subtitle="Όλη η γνώση και τα νέα για τα plug-in φωτοβολταϊκά: τι είναι, πώς λειτουργούν, νομικό πλαίσιο, εγκατάσταση, απόδοση, κόστος."
-    primaryCTA={{ label: 'Διαβάστε το Wiki', href: '/wiki' }}
-    secondaryCTA={{ label: 'Υπολογιστής παραγωγής', href: siteConfig.calculatorUrl }}
+    title={['Ο πλήρης οδηγός για τα φωτοβολταϊκά μπαλκονιού']}
+    subtitle="Μάθε πώς μπορείς να παράγεις ρεύμα από το μπαλκόνι σου με ένα plug-and-play σύστημα. Με μια απλή πρίζα, χωρίς ταράτσα και χωρίς μεγάλη επένδυση."
+    background="muted"
   />
 
   <HowItWorks
-    title="Τρεις πυλώνες"
-    subtitle="Από τη γνώση στην απόφαση και την εκτίμηση παραγωγής."
+    title="Ό,τι χρειάζεστε για να αποφασίσετε"
+    subtitle="Κατανοήστε τη λειτουργία, δείτε τις εξελίξεις και υπολογίστε αν σας συμφέρει."
     steps={[
       {
         title: 'Μάθε',
         description:
-          'Wiki με όλη τη βασική και προχωρημένη γνώση: λειτουργία, νομοθεσία, εγκατάσταση.',
+          'Οδηγός για τη λειτουργία, τη νομοθεσία, τον εξοπλισμό και την εγκατάσταση.',
         icon: 'lucide:book-open',
+        href: '/wiki',
       },
       {
         title: 'Ενημερώσου',
         description:
-          'Blog με τα τελευταία νέα: αποφάσεις ΥΠΕΝ, διαδικασίες ΔΕΔΔΗΕ, εξελίξεις στην αγορά.',
+          'Νέα για το θεσμικό πλαίσιο και την αγορά των φωτοβολταϊκών μπαλκονιού.',
         icon: 'lucide:newspaper',
+        href: '/news',
       },
       {
         title: 'Υπολόγισε',
-        description: 'Δωρεάν υπολογιστής στο balconysolar.gr για εκτίμηση παραγωγής και απόσβεσης.',
+        description: 'Πάρε εκτίμηση παραγωγής, εξοικονόμησης και απόσβεσης για το δικό σου μπαλκόνι.',
         icon: 'lucide:calculator',
+        href: siteConfig.calculatorUrl,
       },
     ]}
     variant="horizontal"
-    background="muted"
+    background="default"
   />
 
   <!-- Latest blog posts -->
-  <section class="py-section">
+  <section class="py-section bg-surface">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-12">
         <h2 class="text-3xl sm:text-4xl font-bold text-text">Πρόσφατα άρθρα</h2>
-        <p class="mt-4 text-lg text-text-muted">Τα τελευταία νέα από το blog μας.</p>
+        <p class="mt-4 text-lg text-text-muted">
+          Τα τελευταία νέα για τα φωτοβολταϊκά μπαλκονιού στην Ελλάδα.
+        </p>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         {
           latestPosts.map((post) => (
-            <a href={`/blog/${post.id}`} class="group block">
+            <a href={`/news/${post.id}`} class="group block">
               <article class="h-full p-6 rounded-lg border border-border bg-background hover:border-primary hover:shadow-md transition-all">
                 <div class="text-sm text-text-muted mb-2">
                   {post.data.publishedDate.toLocaleDateString('el-GR', {
@@ -79,8 +76,6 @@ const popularDocs = [...allDocs]
                     month: 'long',
                     day: 'numeric',
                   })}
-                  <span class="mx-1">·</span>
-                  {calculateReadingTime(post.body || '')} λεπτά
                 </div>
                 <h3 class="text-lg font-semibold text-text group-hover:text-primary transition-colors line-clamp-2">
                   {post.data.title}
@@ -95,10 +90,10 @@ const popularDocs = [...allDocs]
         latestPosts.length > 0 && (
           <div class="mt-10 text-center">
             <a
-              href="/blog"
+              href="/news"
               class="inline-flex items-center gap-2 text-primary font-medium hover:underline"
             >
-              Όλα τα άρθρα
+              Όλα τα νέα
               <Icon name="lucide:arrow-right" class="w-4 h-4" />
             </a>
           </div>
@@ -107,44 +102,5 @@ const popularDocs = [...allDocs]
     </div>
   </section>
 
-  <!-- Popular wiki pages -->
-  <section class="py-section bg-surface">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl sm:text-4xl font-bold text-text">Δημοφιλείς σελίδες Wiki</h2>
-        <p class="mt-4 text-lg text-text-muted">Ξεκινήστε από τα βασικά.</p>
-      </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {
-          popularDocs.map((doc) => (
-            <a
-              href={`/wiki/${doc.id}`}
-              class="block p-6 rounded-lg border border-border bg-background hover:border-primary hover:shadow-md transition-all group"
-            >
-              <p class="text-sm text-primary font-medium mb-1">{doc.data.section}</p>
-              <h3 class="text-lg font-semibold text-text group-hover:text-primary transition-colors">
-                {doc.data.title}
-              </h3>
-              <p class="mt-2 text-sm text-text-muted line-clamp-2">{doc.data.description}</p>
-            </a>
-          ))
-        }
-      </div>
-      <div class="mt-10 text-center">
-        <a
-          href="/wiki"
-          class="inline-flex items-center gap-2 text-primary font-medium hover:underline"
-        >
-          Όλο το Wiki
-          <Icon name="lucide:arrow-right" class="w-4 h-4" />
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <CTA
-    title="Υπολογίστε την παραγωγή του δικού σας μπαλκονιού"
-    description="Ο δωρεάν υπολογιστής στο balconysolar.gr εκτιμά παραγωγή, εξοικονόμηση και χρόνο απόσβεσης βάσει της θέσης και του προσανατολισμού σας."
-    action={{ label: 'Άνοιξε τον υπολογιστή', href: siteConfig.calculatorUrl }}
-  />
+  <CalculatorCTA />
 </MarketingLayout>

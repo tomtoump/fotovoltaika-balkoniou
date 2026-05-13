@@ -38,8 +38,7 @@ export interface SocialLinks {
 }
 
 export interface LegalConfig {
-  privacyEmail: string;
-  legalEmail: string;
+  contactEmail: string;
   lastUpdated: string;
 }
 
@@ -71,7 +70,6 @@ export interface SiteConfig {
   description: string;
   url: string;
   author: string;
-  logo: string;
   ogImage: string;
   /** Sister-site (balconysolar.gr) calculator URL */
   calculatorUrl: string;

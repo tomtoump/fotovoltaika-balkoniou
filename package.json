@@ -1,21 +1,21 @@
 {
-  "name": "users-thomas-downloads-fotovoltaika-virex-tmp",
+  "name": "fotovoltaika-balkoniou",
   "type": "module",
-  "version": "1.4.1",
-  "description": "A production-ready SaaS theme for Astro. Built for those who want to go from zero to launch quickly.",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Wiki + blog για φωτοβολταϊκά μπαλκονιού στην Ελλάδα.",
   "keywords": [
     "astro",
-    "theme",
-    "saas",
-    "landing-page",
-    "tailwindcss"
+    "fotovoltaika",
+    "balcony-solar",
+    "plug-in-pv",
+    "greece"
   ],
-  "author": "Erland <hello@erland.me>",
   "repository": {
     "type": "git",
-    "url": "https://github.com/erlandv/virex.git"
+    "url": "https://github.com/tomtoump/fotovoltaika-balkoniou.git"
   },
-  "homepage": "https://virex.erland.me",
+  "homepage": "https://fotovoltaika-balkoniou.gr",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
@@ -36,7 +36,7 @@
     "@tailwindcss/typography": "^0.5.19",
     "astro": "^5.16.6",
     "astro-icon": "^1.1.5",
-    "chart.js": "^4.4.0"
+    "vanilla-cookieconsent": "^3.1.0"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.6",

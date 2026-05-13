@@ -1,0 +1,21 @@
+---
+import CTA from '@sections/marketing/CTA.astro';
+import { siteConfig } from '@/config';
+
+interface Props {
+  background?: 'default' | 'muted' | 'accent';
+}
+
+const { background = 'default' } = Astro.props;
+---
+
+<CTA
+  title="Πόσο μπορεί να μειωθεί ο λογαριασμός σας;"
+  description="Δείτε μια πρώτη εκτίμηση παραγωγής, εξοικονόμησης και χρόνου απόσβεσης με βάση την περιοχή και τον προσανατολισμό του μπαλκονιού σας."
+  action={{
+    label: 'Υπολογίστε την εξοικονόμηση',
+    href: siteConfig.calculatorUrl,
+    icon: 'lucide:calculator',
+  }}
+  background={background}
+/>

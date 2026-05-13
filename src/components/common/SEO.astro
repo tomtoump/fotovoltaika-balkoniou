@@ -84,7 +84,6 @@ const organizationSchema = {
   '@type': 'Organization',
   name: siteConfig.name,
   url: siteConfig.url,
-  logo: new URL(siteConfig.logo, siteConfig.url).href,
   sameAs: [siteConfig.social.twitter, siteConfig.social.github, siteConfig.social.facebook].filter(
     Boolean
   ),
@@ -107,10 +106,6 @@ const articleSchema =
         publisher: {
           '@type': 'Organization',
           name: siteConfig.name,
-          logo: {
-            '@type': 'ImageObject',
-            url: new URL(siteConfig.logo, siteConfig.url).href,
-          },
         },
         mainEntityOfPage: {
           '@type': 'WebPage',
